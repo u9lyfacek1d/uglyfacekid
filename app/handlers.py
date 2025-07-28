@@ -16,7 +16,7 @@ async def fetch_books_from_google(title: str, limit: int = 5) -> list[BookRead]:
     if response.status_code != 200:
         raise HTTPException(status_code=502, detail="Ошибка при запросе")
 
-    data = await response.json()  # ← ВАЖНО: нужно await
+    data = await response.json()  
     books = []
     for item in data.get("items", []):
         info = item.get("volumeInfo", {})
