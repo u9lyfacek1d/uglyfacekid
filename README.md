@@ -8,8 +8,8 @@ FastAPI Книжный каталог с интеграцией Google Books API
 Как запустить:
   - Установите зависимости:
       - python -m venv .venv
-    source .venv/bin/activate  #для Linux/Mac
-    .venv\Scripts\activate     #для Windows
-    pip install -r requirements.txt
-  2. Запустите приложение:
-    uvicorn app.main:app --reload
+      - source .venv/bin/activate  #для Linux/Mac
+      - .venv\Scripts\activate     #для Windows
+      - pip install -r requirements.txt
+  - Запустите приложение:
+      - uvicorn app.main:app --reload
