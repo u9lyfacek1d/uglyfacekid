@@ -18,11 +18,6 @@ async def get_books_by_filters(db: Session, filters, skip: int, limit: int):
         if value is not None:
             query = query.filter(condition(value))
 
-    if filters.sort_by_created_at:
-        if filters.sort_by_created_at == "old":
-            query = query.order_by(models.Book.created_at.asc())
-        elif filters.sort_by_created_at == "new":
-            query = query.order_by(models.Book.created_at.desc())
 
     results = query.offset(skip).limit(limit).all()
 
