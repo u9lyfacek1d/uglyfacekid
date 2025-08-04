@@ -6,8 +6,8 @@ FastAPI Книжный каталог с интеграцией Google Books API
 - фильтровать и сортировать книги.
 
 Как запустить:
-  1.Установите зависимости:
-    python -m venv .venv
+  - Установите зависимости:
+      - python -m venv .venv
     source .venv/bin/activate  #для Linux/Mac
     .venv\Scripts\activate     #для Windows
     pip install -r requirements.txt
