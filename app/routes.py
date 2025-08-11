@@ -1,10 +1,11 @@
-from fastapi import APIRouter, Depends, HTTPException, Query, Body
+from fastapi import APIRouter, Depends, HTTPException, Query, Body, UploadFile
 from sqlalchemy.orm import Session
 from app.database import get_db, engine
 from app import crud, schemas
 from app.schemas import BookRead, BookFilter
 from app.models import Base
 from app.handlers.external import fetch_and_save_books_handler
+from app.handlers.internal import import_books_from_excel, export_books_handler
 
 
 Base.metadata.drop_all(bind=engine)
@@ -12,6 +13,18 @@ Base.metadata.create_all(bind=engine)
 
 router = APIRouter()
 
+
+@router.get("/books/export")
+async def export_books(format: str = "xlsx", db: Session = Depends(get_db)):
+    return await export_books_handler(db, format)
+
+@router.post("/import-books/")
+async def import_books(file: UploadFile, db: Session = Depends(get_db)):
+    if not file.filename.endswith((".xlsx", ".xlsm")):
+        raise HTTPException(status_code=400, detail="Файл должен быть в формате .xlsx или .xlsm")
+
+    result = await import_books_from_excel(file, db)
+    return {"status": "ok", "imported": result}
 
 @router.post("/admin/fetch-and-save-books/", response_model=list[BookRead])
 async def fetch_and_save_books_route(
