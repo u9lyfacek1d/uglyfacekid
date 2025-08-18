@@ -28,7 +28,6 @@ async def export_books_handler(db: Session, file_format: str = "xlsx"):
     tmp_dir = tempfile.gettempdir()
     file_path = os.path.join(tmp_dir, f"books_export.{file_format}")
 
-    #
     df.to_excel(file_path, index=False, engine="openpyxl")
 
     return FileResponse(
